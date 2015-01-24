@@ -1,0 +1,167 @@
+@import "compass/css3/box-sizing";
+
+//Font
+$text-color: #00CC00;
+
+//General UI
+$ui-highlight: #006363;
+$ui-inactive: #A60000;
+$ui-active: #FF0000;
+$background-color: #5CCCCC;
+$background-color-light: #009999;
+$background-color-alt: #B9F73E;
+
+//Footer
+$footer-border-size: 0.3rem;
+
+//Utility functions
+@function calculateRem($size) {
+  $remSize: $size / 16;
+  @return $remSize;
+}
+
+@function addRem($rem1, $rem2) {
+  $finalRem: $rem1 + $rem2;
+  @return #{$finalRem}rem;
+}
+
+html, body, .content {
+  height: 100%;
+}
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+  -webkit-user-select: none;
+  cursor: default;
+  width: 100%;
+  min-height: 800px;
+  margin: auto;
+}
+body > .content {
+  height: auto;
+  min-height: 100%;
+}
+
+a:link {
+  color: $ui-active;
+}
+
+a:visited {
+  color: $ui-inactive;
+}
+
+#GameCanvas {
+  position: relative;
+  background-color: #000000;
+  display: block;
+  margin: 4rem auto;
+  cursor: none !important;
+}
+
+.header {
+  text-align: center;
+  font-size: 4rem;
+  padding: 0;
+  margin-top: 0;
+  border-bottom: 0.2rem solid $ui-highlight;
+  background-color: $background-color-light;
+  height: 100px;
+}
+
+.content {
+  max-width: 960px;
+  margin: 0 auto;
+  background-color: $background-color-alt;
+}
+
+.canvas-container {
+  width: 100%;
+  display: block;
+  padding-bottom: 3em;
+}
+
+.footer {
+  position: relative;
+  clear: both;
+  width: 100%;
+  max-width: 960px;
+  text-align: center;
+  font-size: 1rem;
+  border-top: $footer-border-size solid $ui-highlight;
+  background-color: $background-color-light;
+  height: 6rem;
+  margin-top: -6rem - $footer-border-size;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 10;
+}
+
+.footer a,
+.footer p,
+.footer ul {
+  position: relative;
+  margin: 5px 0;
+}
+
+.nav-links li {
+  display: inline;
+  padding-right: 1rem;
+}
+
+.nav-links li + li a {
+  padding-left: 1rem;
+  border-left: 0.2rem solid $ui-highlight;
+}
+
+a:hover {
+  color: darken($text-color, 50%);
+}
+
+.about-content a:hover {
+  color: lighten($text-color, 50%);
+}
+
+.modal {
+  font-family: jungle, Helvetica, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  border: 5px solid $ui-highlight;
+  border-radius: 15px;
+  width: 800px;
+  height: 600px;
+  position: relative;
+  margin: addRem(calculateRem(-605), -4) auto 0 auto;
+}
+
+.menu {
+  position: relative;
+  top: 200px;
+  left: 250px;
+  width: 300px;
+  height: 400px;
+}
+
+.game-title {
+  margin-bottom: 10px;
+  font: 32px Arial;
+}
+
+.modal .button {
+  cursor: pointer;
+  width: 150px;
+  display: block;
+  padding: 2% 2%;
+  margin: 0px auto;
+  text-align: center;
+  opacity: 0.75;
+  margin-bottom: 20px;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $ui-inactive), color-stop(100%, darken($ui-inactive, 10%)));
+  -webkit-border-radius: 10px;
+  border: 3px solid $ui-highlight;
+}
+
+.modal .button:hover {
+  opacity: 1 !important;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $ui-active), color-stop(100%, darken($ui-active, 10%)));
+}
