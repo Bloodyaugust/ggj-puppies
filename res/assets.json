@@ -1,6 +1,9 @@
 {
     "images": [
-        "/img/background.png"
+        "/img/background.png",
+        "/img/new.png",
+        "/img/EnvironmentAtlas.png",
+        "/img/PuppyWalk.png"
     ],
 
     "sounds": [
