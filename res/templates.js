@@ -16,10 +16,6 @@
             div(
                 {'class': 'menu'},
                 div(
-                    {'class': 'game-title'},
-                    'Menu'
-                ),
-                div(
                     {'class': 'button', 'id': 'game', 'onClick': 'logPlay();'},
                     'Play'
                 ),

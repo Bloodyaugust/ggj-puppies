@@ -39,30 +39,50 @@ function start() {
                 modal.off();
                 app.transitionScene($(this).attr('id'));
             });
+            
+            var curMOUSE;
+            modal.mousemove(function(){
+                curMOUSE = new SL.Vec2(event.clientX - this.offsetLeft, event.clientY - this.offsetTop);
+            });
+
+            var title = new PIXI.Sprite(app.assetCollection.getTexture('title'));
+            app.currentScene.addEntity({
+                sprite: title,
+                update: function () {}
+            });
+            title.position = new SL.Vec2(260, 75);
+            var eyes = new PIXI.Sprite(app.assetCollection.getTexture('titleEyes')),
+                eyeBase = new SL.Vec2(389, 140);
+
+            eyes.anchor = {x: 0.5, y: 0.5};
+            eyes.position = eyeBase;
+
+            app.currentScene.addEntity({
+                sprite: eyes,
+                update: function () {
+                    if (curMOUSE) {
+                        var direction = eyeBase.angleBetween(curMOUSE);
+
+                        eyes.position = eyeBase.getTranslatedAlongRotation(-3, direction);
+                    }
+                } 
+            });
         }, app);
 
         var gameScene = new SL.Scene('game', [], function () {
-            var modal = $('.modal'),
-              testSprite = new PIXI.Sprite.fromFrame('tree.PNG');
+            var modal = $('.modal');
             modal.empty();
             modal.off();
             modal.hide();
 
+            testSprite = new PIXI.Sprite.fromFrame('tree.PNG');
+
             app.currentScene.addEntity({
                 type: 'background',
                 sprite: new PIXI.Sprite(app.assetCollection.getTexture('background')),
-                update: function () {}
+                update: function () {
+                }
             });
-
-            /*
-            testSprite.scale = {x: 2, y: 2};
-            //testSprite.filters = [new PIXI.PixelateFilter()];
-            app.currentScene.addEntity({
-              type: 'test',
-              sprite: testSprite,
-              update: function () {}
-            });
-            */
             MapGeneration();
         }, app);
 

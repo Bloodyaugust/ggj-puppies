@@ -1,6 +1,8 @@
 {
     "images": [
-        "/img/background.png"
+        "/img/background.png",
+        "/img/title.png",
+        "/img/titleEyes.PNG"
     ],
 
     "sounds": [
