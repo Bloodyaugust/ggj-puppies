@@ -2,7 +2,7 @@
 
 "alert.png":
 {
-	"frame": {"x":498,"y":68,"w":25,"h":30},
+	"frame": {"x":104,"y":183,"w":25,"h":30},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":1,"w":25,"h":30},
@@ -11,7 +11,7 @@
 },
 "bushForAnim0.png":
 {
-	"frame": {"x":260,"y":68,"w":32,"h":32},
+	"frame": {"x":134,"y":134,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -20,7 +20,7 @@
 },
 "bushForAnim1.png":
 {
-	"frame": {"x":294,"y":68,"w":32,"h":32},
+	"frame": {"x":134,"y":168,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -29,7 +29,7 @@
 },
 "bushForAnim2.png":
 {
-	"frame": {"x":328,"y":68,"w":32,"h":32},
+	"frame": {"x":2,"y":183,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -38,7 +38,7 @@
 },
 "bushForAnim3.png":
 {
-	"frame": {"x":260,"y":68,"w":32,"h":32},
+	"frame": {"x":134,"y":134,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -47,7 +47,7 @@
 },
 "clickGround1.png":
 {
-	"frame": {"x":343,"y":102,"w":9,"h":10},
+	"frame": {"x":14,"y":217,"w":9,"h":10},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":11,"y":19,"w":9,"h":10},
@@ -56,7 +56,7 @@
 },
 "clickGround2.png":
 {
-	"frame": {"x":498,"y":100,"w":12,"h":15},
+	"frame": {"x":178,"y":202,"w":12,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":9,"y":10,"w":12,"h":15},
@@ -65,7 +65,7 @@
 },
 "clickGround3.png":
 {
-	"frame": {"x":331,"y":102,"w":10,"h":10},
+	"frame": {"x":2,"y":217,"w":10,"h":10},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":11,"y":8,"w":10,"h":10},
@@ -83,7 +83,7 @@
 },
 "ground1.png":
 {
-	"frame": {"x":362,"y":68,"w":32,"h":32},
+	"frame": {"x":36,"y":183,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -92,7 +92,7 @@
 },
 "ground2.png":
 {
-	"frame": {"x":396,"y":68,"w":32,"h":32},
+	"frame": {"x":70,"y":183,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -101,7 +101,7 @@
 },
 "puppyWalk1.png":
 {
-	"frame": {"x":260,"y":102,"w":22,"h":11},
+	"frame": {"x":182,"y":117,"w":22,"h":11},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":11},
@@ -110,7 +110,7 @@
 },
 "puppyWalk2.png":
 {
-	"frame": {"x":308,"y":102,"w":21,"h":11},
+	"frame": {"x":155,"y":202,"w":21,"h":11},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":21,"h":11},
@@ -119,7 +119,7 @@
 },
 "puppyWalk3.png":
 {
-	"frame": {"x":284,"y":102,"w":22,"h":11},
+	"frame": {"x":131,"y":202,"w":22,"h":11},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":11},
@@ -128,7 +128,7 @@
 },
 "scary.png":
 {
-	"frame": {"x":430,"y":68,"w":32,"h":32},
+	"frame": {"x":168,"y":134,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -146,7 +146,7 @@
 },
 "titleEyes.png":
 {
-	"frame": {"x":354,"y":102,"w":46,"h":9},
+	"frame": {"x":134,"y":117,"w":46,"h":9},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":108,"y":71,"w":46,"h":9},
@@ -155,7 +155,7 @@
 },
 "tree0.png":
 {
-	"frame": {"x":326,"y":2,"w":64,"h":64},
+	"frame": {"x":260,"y":68,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -164,7 +164,7 @@
 },
 "tree1.png":
 {
-	"frame": {"x":392,"y":2,"w":64,"h":64},
+	"frame": {"x":2,"y":117,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -173,7 +173,7 @@
 },
 "tree2.png":
 {
-	"frame": {"x":458,"y":2,"w":64,"h":64},
+	"frame": {"x":68,"y":117,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -182,7 +182,7 @@
 },
 "tree3.png":
 {
-	"frame": {"x":326,"y":2,"w":64,"h":64},
+	"frame": {"x":260,"y":68,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -191,20 +191,20 @@
 },
 "waterTile.png":
 {
-	"frame": {"x":464,"y":68,"w":32,"h":32},
+	"frame": {"x":168,"y":168,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
 	"sourceSize": {"w":32,"h":32},
 	"pivot": {"x":0.5,"y":0.5}
 }},
-"meta": { 
+"meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
 	"version": "1.0",
-	"image": "img/atlas.png",
+	"image": "atlas.png",
 	"format": "RGBA8888",
-	"size": {"w":525,"h":117},
+	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:d47a53cc49aedac3797b481fe926b163:43f89d7497cb229e8df9f45dae05e642:cbce6b53f0f49e0bf15173c25c41f876$"
+	"smartupdate": "$TexturePacker:SmartUpdate:5ba841e8735743b5f04935a0790f16a4:43f89d7497cb229e8df9f45dae05e642:cbce6b53f0f49e0bf15173c25c41f876$"
 }
 }
