@@ -51,9 +51,9 @@ function start() {
                 update: function () {}
             });
             title.anchor = {x: 0.5, y: 0.5};
-            title.position = new SL.Vec2(389, 140);
+            title.position = new SL.Vec2(290, 140);
             var eyes = new PIXI.Sprite(app.assetCollection.getTexture('titleEyes')),
-                eyeBase = new SL.Vec2(389, 140);
+                eyeBase = new SL.Vec2(290, 140);
 
             eyes.anchor = {x: 0.5, y: 0.5};
             eyes.position = eyeBase;
@@ -102,6 +102,10 @@ function start() {
 
             map = new Map();
 
+            app.currentScene.addEntity(new Puppy({
+                location: new SL.Vec2(256, 64)
+            }));
+
             app.currentScene.addEntity(new Player());
             app.currentScene.addEntity(new Hawk());
         }, app);
@@ -122,8 +126,10 @@ function Puppy (config) {
     me.rect = new SL.Rect(config.location, new SL.Vec2(me.sprite.width, me.sprite.height));
     me.attention = 100;
 
-    me.update = function () {
+    me.sprite.scale = {x: 2, y: 2};
 
+    me.update = function () {
+        me.sprite.position = me.rect.location.clone();
     }
 }
 
