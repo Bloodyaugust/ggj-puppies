@@ -69,3 +69,37 @@ function start() {
         app.start();
     });
 }
+
+var MapGeneration = {
+    var worldSize = 1024;
+    var tileOffset = 32;
+    var mapContainer = new PIXI.DisplayObjectContainer();
+    var texture = new PIXI.RenderTexture();
+    texture.render(mapContainer);
+
+    /*
+        var map = [
+        for(){
+            for(){
+                [5,5,5,5,5],
+            }
+            if(i-n eq 1){
+                [5,5,5,5,5]];
+            }
+        }
+    */
+    /*
+    var TileCheck : function(){
+        for(var i=0;i<worldSize;i++){
+
+            i+tileOffset;
+        }  
+    },    
+    var Placement : function(){
+        for(var i=0;i<worldSize;i++){
+
+            i+tileOffset;
+        }  
+    },   
+    */ 
+}

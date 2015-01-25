@@ -743,11 +743,11 @@
 			}
 		}
 	},
-	"ld31": {
+	"ggj-puppies": {
 		"res": {
 			"dependencies.js": function (exports, module, require) {
 				domjs = require('domjs/lib/html5')(document);
 			}
 		}
 	}
-})("ld31/res/dependencies");
+})("ggj-puppies/res/dependencies");

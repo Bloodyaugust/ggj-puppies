@@ -1,9 +1,13 @@
 {
     "images": [
+<<<<<<< HEAD
         "/img/background.png",
         "/img/new.png",
         "/img/EnvironmentAtlas.png",
         "/img/PuppyWalk.png"
+=======
+        "/img/background.png","/img/EnironmentAtlas.png","/img/PupyWalking.png"
+>>>>>>> 8b3d46452600aaca5c8435db443cf4937bc36a1a
     ],
 
     "sounds": [
