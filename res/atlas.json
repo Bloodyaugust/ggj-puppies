@@ -2,7 +2,7 @@
 
 "alert.PNG":
 {
-	"frame": {"x":373,"y":70,"w":25,"h":30},
+	"frame": {"x":328,"y":70,"w":25,"h":30},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":1,"w":25,"h":30},
@@ -11,7 +11,7 @@
 },
 "bushForAnim0.PNG":
 {
-	"frame": {"x":271,"y":68,"w":32,"h":32},
+	"frame": {"x":260,"y":68,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -20,7 +20,7 @@
 },
 "clickGround1.PNG":
 {
-	"frame": {"x":371,"y":102,"w":9,"h":10},
+	"frame": {"x":343,"y":102,"w":9,"h":10},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":11,"y":19,"w":9,"h":10},
@@ -29,8 +29,8 @@
 },
 "clickGround2.PNG":
 {
-	"frame": {"x":271,"y":102,"w":12,"h":15},
-	"rotated": true,
+	"frame": {"x":389,"y":70,"w":12,"h":15},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":9,"y":10,"w":12,"h":15},
 	"sourceSize": {"w":32,"h":32},
@@ -38,7 +38,7 @@
 },
 "clickGround3.PNG":
 {
-	"frame": {"x":359,"y":102,"w":10,"h":10},
+	"frame": {"x":331,"y":102,"w":10,"h":10},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":11,"y":8,"w":10,"h":10},
@@ -56,7 +56,7 @@
 },
 "ground1.PNG":
 {
-	"frame": {"x":305,"y":68,"w":32,"h":32},
+	"frame": {"x":294,"y":68,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -65,7 +65,7 @@
 },
 "ground2.PNG":
 {
-	"frame": {"x":392,"y":2,"w":32,"h":32},
+	"frame": {"x":380,"y":2,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -74,7 +74,7 @@
 },
 "puppyWalk1.PNG":
 {
-	"frame": {"x":288,"y":102,"w":22,"h":11},
+	"frame": {"x":260,"y":102,"w":22,"h":11},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":11},
@@ -83,7 +83,7 @@
 },
 "puppyWalk2.PNG":
 {
-	"frame": {"x":336,"y":102,"w":21,"h":11},
+	"frame": {"x":308,"y":102,"w":21,"h":11},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":21,"h":11},
@@ -92,7 +92,7 @@
 },
 "puppyWalk3.PNG":
 {
-	"frame": {"x":312,"y":102,"w":22,"h":11},
+	"frame": {"x":284,"y":102,"w":22,"h":11},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":11},
@@ -101,7 +101,7 @@
 },
 "scary.PNG":
 {
-	"frame": {"x":392,"y":36,"w":32,"h":32},
+	"frame": {"x":380,"y":36,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -119,8 +119,8 @@
 },
 "titleEyes.PNG":
 {
-	"frame": {"x":260,"y":68,"w":46,"h":9},
-	"rotated": true,
+	"frame": {"x":328,"y":59,"w":46,"h":9},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":108,"y":71,"w":46,"h":9},
 	"sourceSize": {"w":256,"h":128},
@@ -128,16 +128,16 @@
 },
 "tree.PNG":
 {
-	"frame": {"x":326,"y":2,"w":64,"h":64},
+	"frame": {"x":326,"y":2,"w":52,"h":55},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":1,"w":52,"h":55},
 	"sourceSize": {"w":64,"h":64},
 	"pivot": {"x":0.5,"y":0.5}
 },
 "waterTile.PNG":
 {
-	"frame": {"x":339,"y":68,"w":32,"h":32},
+	"frame": {"x":355,"y":70,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -149,8 +149,8 @@
 	"version": "1.0",
 	"image": "img/atlas.png",
 	"format": "RGBA8888",
-	"size": {"w":426,"h":117},
+	"size": {"w":414,"h":117},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5f1edddaaa77493b6abbb618a6c25e9d:d0b4218396b351c79b8649f7d0dbe06f:cbce6b53f0f49e0bf15173c25c41f876$"
+	"smartupdate": "$TexturePacker:SmartUpdate:174dc7f6a74648e7038d2350cc41f030:60863de1f5948f2deaeba8f4b7359383:cbce6b53f0f49e0bf15173c25c41f876$"
 }
 }
