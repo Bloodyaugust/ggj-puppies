@@ -1,6 +1,6 @@
 SL = sugarLab;
 
-var SCREEN_SIZE = new SL.Vec2(800, 600);
+var SCREEN_SIZE = new SL.Vec2(800, 576);
 
 function logPlay() {
     _gaq.push(['_trackEvent', 'Button', 'Play']);
@@ -39,7 +39,9 @@ function start() {
         }, app);
 
         var gameScene = new SL.Scene('game', [], function () {
-            var modal = $('.modal');
+            var modal = $('.modal'),
+              atlas = new PIXI.AtlasLoader('res/atlas.json'),
+              testSprite = new PIXI.Sprite(app.assetCollection.getTexture('new'));
             modal.empty();
             modal.off();
             modal.hide();
@@ -48,6 +50,14 @@ function start() {
                 type: 'background',
                 sprite: new PIXI.Sprite(app.assetCollection.getTexture('background')),
                 update: function () {}
+            });
+
+            testSprite.scale = {x: 15, y: 10};
+            //testSprite.filters = [new PIXI.PixelateFilter()];
+            app.currentScene.addEntity({
+              type: 'test',
+              sprite: testSprite,
+              update: function () {}
             });
         }, app);
 
