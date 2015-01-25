@@ -83,7 +83,7 @@ function start() {
                         preValY = valY;
                     }
                 }
-            });
+            });          
         }, app);
 
         var gameScene = new SL.Scene('game', [], function () {
@@ -103,6 +103,7 @@ function start() {
             map = new Map();
 
             app.currentScene.addEntity(new Player());
+            app.currentScene.addEntity(new Hawk());
         }, app);
 
         app.addScene(loadingScene);
