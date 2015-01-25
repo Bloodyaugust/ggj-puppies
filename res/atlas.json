@@ -47,7 +47,7 @@
 },
 "clickGround1.png":
 {
-	"frame": {"x":14,"y":217,"w":9,"h":10},
+	"frame": {"x":143,"y":202,"w":9,"h":10},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":11,"y":19,"w":9,"h":10},
@@ -56,7 +56,7 @@
 },
 "clickGround2.png":
 {
-	"frame": {"x":178,"y":202,"w":12,"h":15},
+	"frame": {"x":202,"y":188,"w":12,"h":15},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":9,"y":10,"w":12,"h":15},
@@ -65,10 +65,19 @@
 },
 "clickGround3.png":
 {
-	"frame": {"x":2,"y":217,"w":10,"h":10},
+	"frame": {"x":131,"y":202,"w":10,"h":10},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":11,"y":8,"w":10,"h":10},
+	"sourceSize": {"w":32,"h":32},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"cursor.png":
+{
+	"frame": {"x":202,"y":168,"w":16,"h":18},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":7,"w":16,"h":18},
 	"sourceSize": {"w":32,"h":32},
 	"pivot": {"x":0.5,"y":0.5}
 },
@@ -99,6 +108,15 @@
 	"sourceSize": {"w":32,"h":32},
 	"pivot": {"x":0.5,"y":0.5}
 },
+"hawk.png":
+{
+	"frame": {"x":202,"y":134,"w":31,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":32},
+	"sourceSize": {"w":32,"h":32},
+	"pivot": {"x":0.5,"y":0.5}
+},
 "puppyWalk1.png":
 {
 	"frame": {"x":182,"y":117,"w":22,"h":11},
@@ -110,7 +128,7 @@
 },
 "puppyWalk2.png":
 {
-	"frame": {"x":155,"y":202,"w":21,"h":11},
+	"frame": {"x":230,"y":117,"w":21,"h":11},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":21,"h":11},
@@ -119,7 +137,7 @@
 },
 "puppyWalk3.png":
 {
-	"frame": {"x":131,"y":202,"w":22,"h":11},
+	"frame": {"x":206,"y":117,"w":22,"h":11},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":22,"h":11},
@@ -205,6 +223,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1024,"h":1024},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:5ba841e8735743b5f04935a0790f16a4:43f89d7497cb229e8df9f45dae05e642:cbce6b53f0f49e0bf15173c25c41f876$"
+	"smartupdate": "$TexturePacker:SmartUpdate:4e599ea5abc19c035af1d77f48199edd:f2b62a7769b3efc7f2b6f2251dc8dae8:cbce6b53f0f49e0bf15173c25c41f876$"
 }
 }
