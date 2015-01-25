@@ -1,7 +1,6 @@
 {
     "images": [
-        "/img/background.png",
-        "/img/new.png"
+        "/img/background.png"
     ],
 
     "sounds": [
@@ -13,6 +12,6 @@
     },
 
     "keys": {
-
+    	
     }
 }
