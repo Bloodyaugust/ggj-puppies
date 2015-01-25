@@ -10,6 +10,9 @@ function start() {
     var startLoad = new Date;
 
     window.app = new SL.Game({canvas: document.getElementById('GameCanvas')});
+    spritesheet = new PIXI.SpriteSheetLoader('res/atlas.json');
+
+    spritesheet.load();
 
     app.assetCollection = new SL.AssetCollection('res/assets.json', app, function () {
         _gaq.push(['_trackEvent', 'Game', 'Load', '', (new Date - startLoad) / 1000]);
@@ -40,8 +43,7 @@ function start() {
 
         var gameScene = new SL.Scene('game', [], function () {
             var modal = $('.modal'),
-              atlas = new PIXI.AtlasLoader('res/atlas.json'),
-              testSprite = new PIXI.Sprite(app.assetCollection.getTexture('new'));
+              testSprite = new PIXI.Sprite.fromFrame('tree.PNG');
             modal.empty();
             modal.off();
             modal.hide();
@@ -52,7 +54,7 @@ function start() {
                 update: function () {}
             });
 
-            testSprite.scale = {x: 15, y: 10};
+            testSprite.scale = {x: 2, y: 2};
             //testSprite.filters = [new PIXI.PixelateFilter()];
             app.currentScene.addEntity({
               type: 'test',
@@ -70,7 +72,7 @@ function start() {
     });
 }
 
-var MapGeneration = {
+function MapGeneration() {
     var worldSize = 1024;
     var tileOffset = 32;
     var mapContainer = new PIXI.DisplayObjectContainer();
@@ -93,13 +95,13 @@ var MapGeneration = {
         for(var i=0;i<worldSize;i++){
 
             i+tileOffset;
-        }  
-    },    
+        }
+    },
     var Placement : function(){
         for(var i=0;i<worldSize;i++){
 
             i+tileOffset;
-        }  
-    },   
-    */ 
+        }
+    },
+    */
 }
