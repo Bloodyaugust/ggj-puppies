@@ -93,8 +93,6 @@ function start() {
             modal.off();
             modal.hide();
 
-            testSprite = new PIXI.Sprite.fromFrame('tree.PNG');
-
             app.currentScene.addEntity({
                 type: 'background',
                 sprite: new PIXI.Sprite(app.assetCollection.getTexture('background')),
@@ -103,6 +101,8 @@ function start() {
             });
 
             map = new Map();
+
+            app.currentScene.addEntity(new Player());
         }, app);
 
         app.addScene(loadingScene);
@@ -114,6 +114,47 @@ function start() {
     });
 }
 
+function Puppy (config) {
+    var me = this;
+
+    me.sprite = new PIXI.Sprite.fromFrame('puppyWalk1.png');
+    me.rect = new SL.Rect(config.location, new SL.Vec2(me.sprite.width, me.sprite.height));
+    me.attention = 100;
+
+    me.update = function () {
+
+    }
+}
+
+function Player () {
+    var me = this;
+
+    me.sprite = new PIXI.Sprite.fromFrame('cursor.png');
+    me.rect = new SL.Rect(new SL.Vec2(0, 0), new SL.Vec2(2, 2));
+
+    me.update = function () {
+        var tileGroups = app.currentScene.getEntitiesByTag('tileGroup'),
+            hitTileGroup;
+
+        me.rect.setLocation(app.mouseLocation);
+        me.sprite.position = app.mouseLocation.clone();
+
+        if (app.onMouseDown('left')) {
+            for (var i = 0; i < tileGroups.length; i++) {
+                if (me.rect.intersects(tileGroups[i].rect)) {
+                    hitTileGroup = tileGroups[i];
+                    console.log('intersection with: ', hitTileGroup);
+                    for (var i2 = 0; i2 < hitTileGroup.tiles.length; i2++) {
+                        if (me.rect.intersects(hitTileGroup.tiles[i2].rect)) {
+                            console.log('intersection with: ', hitTileGroup.tiles[i2]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 function Tile (config) {
     var me = this;
 
@@ -121,7 +162,10 @@ function Tile (config) {
     me.type = config.type;
     me.sprite = new PIXI.Sprite.fromFrame(me.type + '.png');
     me.state = 'idle';
-    me.rect = new SL.Rect(config.location, new Vec2(me.sprite.width, me.sprite.height));
+    me.rect = new SL.Rect(config.location, new SL.Vec2(me.sprite.width * 2, me.sprite.height * 2));
+
+    me.sprite.position = me.rect.location.clone();
+    me.sprite.scale = {x: 2, y: 2};
 
     me.update = function () {
 
@@ -157,15 +201,15 @@ function TileGroup (location) {
     for (i = 0; i < smallTiles.length; i++) {
         runningChance = 0;
         for (var i2 = 0; i2 <= i; i2++) {
-            runningChance += smallTiles[i2].rate / totalWeight;
+            runningChance += smallTiles[i2].rate / smallTileWeight;
         }
-        chances.push(runningChance / totalWeight);
+        chances.push(runningChance);
     }
     largeTileChance = largeTileWeight / totalWeight;
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 5; i++) {
         if (Math.random() < largeTileChance) {
-            tileType = Math.random() < largeTiles[0].weight / largeTileWeight ? largeTiles[0].type : largeTiles[1].type;
+            tileType = Math.random() < largeTiles[0].rate / largeTileWeight ? largeTiles[0].type : largeTiles[1].type;
             me.tiles.push(new Tile({
                 type: tileType,
                 location: me.rect.location.getTranslated(new SL.Vec2(128 * i, 0))
@@ -175,31 +219,31 @@ function TileGroup (location) {
                 tileSeed = Math.random();
                 switch (true) {
                     case tileSeed >= 0 && tileSeed < chances[0]:
-                        tiles.push(new Tile({
+                        me.tiles.push(new Tile({
                             type: smallTiles[0].type,
                             location: me.rect.location.getTranslated(new SL.Vec2((i * 128) + ((i2 % 2) * 64), Math.floor(i2 / 2) * 64))
                         }));
                         break;
                     case tileSeed >= chances[0] && tileSeed <= chances[1]:
-                        tiles.push(new Tile({
+                        me.tiles.push(new Tile({
                             type: smallTiles[1].type,
                             location: me.rect.location.getTranslated(new SL.Vec2((i * 128) + ((i2 % 2) * 64), Math.floor(i2 / 2) * 64))
                         }));
                         break;
                     case tileSeed >= chances[1] && tileSeed <= chances[2]:
-                        tiles.push(new Tile({
+                        me.tiles.push(new Tile({
                             type: smallTiles[2].type,
                             location: me.rect.location.getTranslated(new SL.Vec2((i * 128) + ((i2 % 2) * 64), Math.floor(i2 / 2) * 64))
                         }));
                         break;
                     case tileSeed >= chances[2] && tileSeed <= chances[3]:
-                        tiles.push(new Tile({
+                        me.tiles.push(new Tile({
                             type: smallTiles[3].type,
                             location: me.rect.location.getTranslated(new SL.Vec2((i * 128) + ((i2 % 2) * 64), Math.floor(i2 / 2) * 64))
                         }));
                         break;
                     case tileSeed >= chances[3] && tileSeed <= chances[4]:
-                        tiles.push(new Tile({
+                        me.tiles.push(new Tile({
                             type: smallTiles[4].type,
                             location: me.rect.location.getTranslated(new SL.Vec2((i * 128) + ((i2 % 2) * 64), Math.floor(i2 / 2) * 64))
                         }));
