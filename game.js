@@ -50,23 +50,41 @@ function start() {
                 sprite: title,
                 update: function () {}
             });
-            title.position = new SL.Vec2(260, 75);
+            title.anchor = {x: 0.5, y: 0.5};
+            title.position = new SL.Vec2(389, 140);
             var eyes = new PIXI.Sprite(app.assetCollection.getTexture('titleEyes')),
                 eyeBase = new SL.Vec2(389, 140);
 
             eyes.anchor = {x: 0.5, y: 0.5};
             eyes.position = eyeBase;
 
+            var idleClock;
+            var valX, valY;
+            var preValX, preValY;
+
             app.currentScene.addEntity({
                 sprite: eyes,
                 update: function () {
                     if (curMOUSE) {
-                        var direction = eyeBase.angleBetween(curMOUSE);
-
-                        eyes.position = eyeBase.getTranslatedAlongRotation(-3, direction);
-                    }
+                        valX = curMOUSE.x;
+                        valY = curMOUSE.y;
+                        if(valX != preValX){
+                            var direction = title.position.angleBetween(curMOUSE);
+                            eyes.position = eyeBase.getTranslatedAlongRotation(-3, direction); 
+                            idleClock=0;                          
+                        } else {
+                            if(Math.floor(idleClock) > 1){
+                                eyes.position = eyeBase;
+                            } else{
+                                idleClock += 1/60;                          
+                            }
+                        }
+                        preValX = valX;
+                        preValY = valY;
+                    } 
                 } 
             });
+            MapGeneration(512);
         }, app);
 
         var gameScene = new SL.Scene('game', [], function () {
@@ -83,7 +101,8 @@ function start() {
                 update: function () {
                 }
             });
-            MapGeneration();
+            AnimationManager();
+            MapGeneration(2048);
         }, app);
 
         app.addScene(loadingScene);
@@ -95,8 +114,9 @@ function start() {
     });
 }
 
-function MapGeneration() {
-    var worldSize = 1024;
+function MapGeneration(m) {
+    var worldSize = m;
+    var bgIndex = new PIXI.DisplayObjectContainer();
 
     var mapContainer = new PIXI.DisplayObjectContainer();
     var texture = new PIXI.RenderTexture();
@@ -125,7 +145,6 @@ function MapGeneration() {
         var tileKeys = [];
         var oX=0;
         var oY=0;
-        var i = 0;
         for(var key in jsonObj.frames){
           keys.push(key);
         }
@@ -135,40 +154,96 @@ function MapGeneration() {
                 tileKeys.push(keys[i]);
             }            
         }
-        for(var j=0;j<worldSize;j+=64){
-            var selector = Math.floor(Math.random() * tileKeys.length);
-            onloadGenerate(tileKeys[selector],oX,oY);
-            if(tileKeys[selector] == 'tree.PNG' || tileKeys[selector] == 'dirt.PNG'){
-                oX += 64;
-            } else {
-                for(var i=0;i<2;i++){
-                    var r = Math.floor(Math.random() * tileKeys.length);
-                    if(tileKeys[r] == 'tree.PNG' || tileKeys[r] == 'dirt.PNG'){
-                    } else{
+        var counterY = 0;
+        var counterX = 0;
+        var TileTrackerX = 0;
+        while(!((512/64)%8) && oY < 512){
+            while(!((512/64)%8) && oX < 512){
+                var selector = Math.floor(Math.random() * tileKeys.length);
+                bgIndex.addChild(tileKeys[selector]);
+
+                onloadGenerate(tileKeys[selector],oX,oY);
+                if(tileKeys[selector] == 'tree.PNG' || tileKeys[selector] == 'dirt.PNG'){
+                    oX += 64;
+                    TileTrackerX += 128;
+                } else {
+                    for(var i=0;i<1;i++){
+                        var r = Math.floor(Math.random() * tileKeys.length);
                         var yO = oY;
-                        yO = oY + 64;                      
-                        onloadGenerate(tileKeys[r],oX,yO);
-                    }
-                }                
-                oX = oX;
+                        while (tileKeys[r] == 'tree.PNG' || tileKeys[r] == 'dirt.PNG') {
+                            r = Math.floor(Math.random() * tileKeys.length);
+                        }
+                        if(tileKeys[r] == 'tree.PNG' || tileKeys[r] == 'dirt.PNG'){
+                        } else {
+                            yO = oY + 64;                      
+                            bgIndex.addChild(tileKeys[r]);
+                            onloadGenerate(tileKeys[r],oX,yO);
+                            yO = oY;
+                        }
+                        TileTrackerX += 64;
+                        counterX += 1;            
+                    }                
+                    oX = oX;
+                }
+                if(TileTrackerX>512){
+                    console.log('Encounterd incompatible set Size @ Row: '+(counterY+1) +', '+TileTrackerX);
+                }
+                oX+=64; 
             }
-            oX+=64;                            
+            counterX = 0;            
+            TileTrackerX = 0;
+            counterY += 1;            
+            oY+=128; 
+            oX=0;  
         }
     };
     xhr.open('get', 'res/atlas.json', true);
     xhr.send();
-    /*
-    var TileCheck : function(){
-        for(var i=0;i<worldSize;i++){
+}
 
-            i+tileOffset;
+function AnimationManager() {
+    var indexManagement = new PIXI.DisplayObjectContainer();   
+    function onloadGenerate(x,oX,oY){
+        var label = x.split('.');
+        var methodLabel = 'load'+label[0];
+        methodLabel = new PIXI.Sprite.fromFrame(x);
+        methodLabel.scale = {x: 2, y: 2};
+        methodLabel.position = new SL.Vec2(oX, oY);
+        app.currentScene.addEntity({
+          type: label[0],
+          sprite: methodLabel,
+          update: function () {}
+        });       
+    }
+    //DRAW//
+    var jsonObj;
+    xhr = new XMLHttpRequest();
+    xhr.onload = function () { 
+        jsonObj = JSON.parse(this.responseText); 
+        var keys = [];
+        var clickKeys = [];
+        var indicatorKeys = [];
+        var playerKeys = [];
+        for(var key in jsonObj.frames){
+          keys.push(key);
         }
-    },
-    var Placement : function(){
-        for(var i=0;i<worldSize;i++){
+        for(var i=0;i<keys.length;i++){
+            if(keys[i] == 'clickGround1.PNG' || keys[i] == 'clickGround2.PNG' || keys[i] == 'clickGround3.PNG'){
+                clickKeys.push(keys[i]);
+            }else if(keys[i] == 'alert.PNG'){
+                indicatorKeys.push(keys[i]);
+            }else if(keys[i] == 'puppyWalk1.PNG' || keys[i] == 'puppyWalk2.PNG' || keys[i] == 'puppyWalk3.PNG'){
+                playerKeys.push(keys[i]);
+            }            
+        }  
+        onloadGenerate(playerKeys[0],250,250);
+    };
+    xhr.open('get', 'res/atlas.json', true);
+    xhr.send();
+}
 
-            i+tileOffset;
-        }
-    },
-    */
+function GameCursor() {
+    var indexManagement = new PIXI.DisplayObjectContainer();   
+
+
 }
