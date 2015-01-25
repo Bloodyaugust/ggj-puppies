@@ -84,7 +84,6 @@ function start() {
                     } 
                 } 
             });
-            MapGeneration(512);
         }, app);
 
         var gameScene = new SL.Scene('game', [], function () {
