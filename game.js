@@ -1,6 +1,6 @@
 SL = sugarLab;
 
-var SCREEN_SIZE = new SL.Vec2(800, 576);
+var SCREEN_SIZE = new SL.Vec2(576, 576);
 
 function logPlay() {
     _gaq.push(['_trackEvent', 'Button', 'Play']);
@@ -39,7 +39,7 @@ function start() {
                 modal.off();
                 app.transitionScene($(this).attr('id'));
             });
-            
+
             var curMOUSE;
             modal.mousemove(function(){
                 curMOUSE = new SL.Vec2(event.clientX - this.offsetLeft, event.clientY - this.offsetTop);
@@ -70,25 +70,25 @@ function start() {
                         valY = curMOUSE.y;
                         if(valX != preValX){
                             var direction = title.position.angleBetween(curMOUSE);
-                            eyes.position = eyeBase.getTranslatedAlongRotation(-3, direction); 
-                            idleClock=0;                          
+                            eyes.position = eyeBase.getTranslatedAlongRotation(-3, direction);
+                            idleClock=0;
                         } else {
                             if(Math.floor(idleClock) > 1){
                                 eyes.position = eyeBase;
                             } else{
-                                idleClock += 1/60;                          
+                                idleClock += 1/60;
                             }
                         }
                         preValX = valX;
                         preValY = valY;
-                    } 
-                } 
+                    }
+                }
             });
-            MapGeneration(512);
         }, app);
 
         var gameScene = new SL.Scene('game', [], function () {
-            var modal = $('.modal');
+            var modal = $('.modal'),
+                map;
             modal.empty();
             modal.off();
             modal.hide();
@@ -101,8 +101,8 @@ function start() {
                 update: function () {
                 }
             });
-            AnimationManager();
-            MapGeneration(2048);
+
+            map = new Map();
         }, app);
 
         app.addScene(loadingScene);
@@ -114,136 +114,116 @@ function start() {
     });
 }
 
-function MapGeneration(m) {
-    var worldSize = m;
-    var bgIndex = new PIXI.DisplayObjectContainer();
+function Tile (config) {
+    var me = this;
 
-    var mapContainer = new PIXI.DisplayObjectContainer();
-    var texture = new PIXI.RenderTexture();
-    texture.render(mapContainer);
+    me.tag = 'tile';
+    me.type = config.type;
+    me.sprite = new PIXI.Sprite.fromFrame(me.type + '.png');
+    me.state = 'idle';
+    me.rect = new SL.Rect(config.location, new Vec2(me.sprite.width, me.sprite.height));
 
-    function onloadGenerate(x,oX,oY){
-        var label = x.split('.');
-        var methodLabel = 'load'+label[0];
-        methodLabel = new PIXI.Sprite.fromFrame(x);
-        methodLabel.scale = {x: 2, y: 2};
-        app.currentScene.addEntity({
-          type: label[0],
-          sprite: methodLabel,
-          update: function () {}
-        });       
-        // var assign obj and add it to the scene and //
-        methodLabel.position = new SL.Vec2(oX, oY);
+    me.update = function () {
+
     }
-//DRAW//
-//INVOKE WHILE < World Map Size//
-    var jsonObj;
-    xhr = new XMLHttpRequest();
-    xhr.onload = function () { 
-        jsonObj = JSON.parse(this.responseText); 
-        var keys = [];
-        var tileKeys = [];
-        var oX=0;
-        var oY=0;
-        for(var key in jsonObj.frames){
-          keys.push(key);
-        }
-        for(var i=0;i<keys.length;i++){
-            if(keys[i] == 'alert.PNG' || keys[i] == 'clickGround1.PNG' || keys[i] == 'clickGround2.PNG' || keys[i] == 'clickGround3.PNG' || keys[i] == 'puppyWalk1.PNG' || keys[i] == 'puppyWalk2.PNG' || keys[i] == 'puppyWalk3.PNG'){
-            }else{
-                tileKeys.push(keys[i]);
-            }            
-        }
-        var counterY = 0;
-        var counterX = 0;
-        var TileTrackerX = 0;
-        while(!((512/64)%8) && oY < 512){
-            while(!((512/64)%8) && oX < 512){
-                var selector = Math.floor(Math.random() * tileKeys.length);
-                bgIndex.addChild(tileKeys[selector]);
+}
 
-                onloadGenerate(tileKeys[selector],oX,oY);
-                if(tileKeys[selector] == 'tree.PNG' || tileKeys[selector] == 'dirt.PNG'){
-                    oX += 64;
-                    TileTrackerX += 128;
-                } else {
-                    for(var i=0;i<1;i++){
-                        var r = Math.floor(Math.random() * tileKeys.length);
-                        var yO = oY;
-                        while (tileKeys[r] == 'tree.PNG' || tileKeys[r] == 'dirt.PNG') {
-                            r = Math.floor(Math.random() * tileKeys.length);
-                        }
-                        if(tileKeys[r] == 'tree.PNG' || tileKeys[r] == 'dirt.PNG'){
-                        } else {
-                            yO = oY + 64;                      
-                            bgIndex.addChild(tileKeys[r]);
-                            onloadGenerate(tileKeys[r],oX,yO);
-                            yO = oY;
-                        }
-                        TileTrackerX += 64;
-                        counterX += 1;            
-                    }                
-                    oX = oX;
+function TileGroup (location) {
+    var me = this,
+        tileConfigs = app.assetCollection.assets.tiles,
+        largeTileWeight = 0,
+        smallTileWeight = 0,
+        totalWeight = 0,
+        smallTiles = [],
+        chances = [],
+        largeTiles = [],
+        runningChance = 0,
+        largeTileChance, tileType, tileSeed;
+
+    me.tag = 'tileGroup';
+    me.rect = new SL.Rect(location, new SL.Vec2(576, 128));
+    me.tiles = [];
+
+    for (var i = 0; i < tileConfigs.length; i++) {
+        if (tileConfigs[i].size === 1) {
+            smallTileWeight += tileConfigs[i].rate;
+            smallTiles.push(tileConfigs[i]);
+        } else {
+            largeTileWeight += tileConfigs[i].rate;
+            largeTiles.push(tileConfigs[i]);
+        }
+        totalWeight += tileConfigs[i].rate;
+    }
+    for (i = 0; i < smallTiles.length; i++) {
+        runningChance = 0;
+        for (var i2 = 0; i2 <= i; i2++) {
+            runningChance += smallTiles[i2].rate / totalWeight;
+        }
+        chances.push(runningChance / totalWeight);
+    }
+    largeTileChance = largeTileWeight / totalWeight;
+
+    for (i = 0; i < 2; i++) {
+        if (Math.random() < largeTileChance) {
+            tileType = Math.random() < largeTiles[0].weight / largeTileWeight ? largeTiles[0].type : largeTiles[1].type;
+            me.tiles.push(new Tile({
+                type: tileType,
+                location: me.rect.location.getTranslated(new SL.Vec2(128 * i, 0))
+            }));
+        } else {
+            for (var i2 = 0; i2 < 4; i2++) {
+                tileSeed = Math.random();
+                switch (true) {
+                    case tileSeed >= 0 && tileSeed < chances[0]:
+                        tiles.push(new Tile({
+                            type: smallTiles[0].type,
+                            location: me.rect.location.getTranslated(new SL.Vec2((i * 128) + ((i2 % 2) * 64), Math.floor(i2 / 2) * 64))
+                        }));
+                        break;
+                    case tileSeed >= chances[0] && tileSeed <= chances[1]:
+                        tiles.push(new Tile({
+                            type: smallTiles[1].type,
+                            location: me.rect.location.getTranslated(new SL.Vec2((i * 128) + ((i2 % 2) * 64), Math.floor(i2 / 2) * 64))
+                        }));
+                        break;
+                    case tileSeed >= chances[1] && tileSeed <= chances[2]:
+                        tiles.push(new Tile({
+                            type: smallTiles[2].type,
+                            location: me.rect.location.getTranslated(new SL.Vec2((i * 128) + ((i2 % 2) * 64), Math.floor(i2 / 2) * 64))
+                        }));
+                        break;
+                    case tileSeed >= chances[2] && tileSeed <= chances[3]:
+                        tiles.push(new Tile({
+                            type: smallTiles[3].type,
+                            location: me.rect.location.getTranslated(new SL.Vec2((i * 128) + ((i2 % 2) * 64), Math.floor(i2 / 2) * 64))
+                        }));
+                        break;
+                    case tileSeed >= chances[3] && tileSeed <= chances[4]:
+                        tiles.push(new Tile({
+                            type: smallTiles[4].type,
+                            location: me.rect.location.getTranslated(new SL.Vec2((i * 128) + ((i2 % 2) * 64), Math.floor(i2 / 2) * 64))
+                        }));
+                        break;
                 }
-                if(TileTrackerX>512){
-                    console.log('Encounterd incompatible set Size @ Row: '+(counterY+1) +', '+TileTrackerX);
-                }
-                oX+=64; 
             }
-            counterX = 0;            
-            TileTrackerX = 0;
-            counterY += 1;            
-            oY+=128; 
-            oX=0;  
         }
-    };
-    xhr.open('get', 'res/atlas.json', true);
-    xhr.send();
-}
-
-function AnimationManager() {
-    var indexManagement = new PIXI.DisplayObjectContainer();   
-    function onloadGenerate(x,oX,oY){
-        var label = x.split('.');
-        var methodLabel = 'load'+label[0];
-        methodLabel = new PIXI.Sprite.fromFrame(x);
-        methodLabel.scale = {x: 2, y: 2};
-        methodLabel.position = new SL.Vec2(oX, oY);
-        app.currentScene.addEntity({
-          type: label[0],
-          sprite: methodLabel,
-          update: function () {}
-        });       
     }
-    //DRAW//
-    var jsonObj;
-    xhr = new XMLHttpRequest();
-    xhr.onload = function () { 
-        jsonObj = JSON.parse(this.responseText); 
-        var keys = [];
-        var clickKeys = [];
-        var indicatorKeys = [];
-        var playerKeys = [];
-        for(var key in jsonObj.frames){
-          keys.push(key);
-        }
-        for(var i=0;i<keys.length;i++){
-            if(keys[i] == 'clickGround1.PNG' || keys[i] == 'clickGround2.PNG' || keys[i] == 'clickGround3.PNG'){
-                clickKeys.push(keys[i]);
-            }else if(keys[i] == 'alert.PNG'){
-                indicatorKeys.push(keys[i]);
-            }else if(keys[i] == 'puppyWalk1.PNG' || keys[i] == 'puppyWalk2.PNG' || keys[i] == 'puppyWalk3.PNG'){
-                playerKeys.push(keys[i]);
-            }            
-        }  
-        onloadGenerate(playerKeys[0],250,250);
-    };
-    xhr.open('get', 'res/atlas.json', true);
-    xhr.send();
+
+    for (i = 0; i < me.tiles.length; i++) {
+        app.currentScene.addEntity(me.tiles[i]);
+    }
+
+    me.update = function () {};
 }
 
-function GameCursor() {
-    var indexManagement = new PIXI.DisplayObjectContainer();   
+function Map () {
+    var me = this;
 
+    me.groups = 100;
+    me.tileGroups = [];
 
+    for (var i = 0; i < me.groups; i++) {
+        me.tileGroups.push(new TileGroup(new SL.Vec2(0, i * 128)));
+        app.currentScene.addEntity(me.tileGroups[i]);
+    };
 }
