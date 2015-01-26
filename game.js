@@ -101,13 +101,13 @@ function start() {
             });
 
             map = new Map();
-
+            /*
             app.currentScene.addEntity(new Puppy({
                 location: new SL.Vec2(256, 64)
             }));
-
-            app.currentScene.addEntity(new Player());
-            app.currentScene.addEntity(new Hawk());
+            */
+            //app.currentScene.addEntity(new Player());
+            //app.currentScene.addEntity(new Hawk());
         }, app);
 
         app.addScene(loadingScene);
@@ -118,7 +118,19 @@ function start() {
         app.start();
     });
 }
+/*
+function Hawk (config) {
+    var me = this;
 
+    me.sprite = new PIXI.Sprite.fromFrame('hawk.png');
+    me.rect = new SL.Rect(config.location, new SL.Vec2(me.sprite.width, me.sprite.height));
+
+    me.sprite.scale = {x: 2, y: 2};
+
+    me.update = function () {
+        me.sprite.position = me.rect.location.clone();
+    }
+}
 function Puppy (config) {
     var me = this;
 
@@ -132,6 +144,7 @@ function Puppy (config) {
         me.sprite.position = me.rect.location.clone();
     }
 }
+*/
 
 function Player () {
     var me = this;
